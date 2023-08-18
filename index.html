@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <script type="module" src="./dist/design-system-components.js"></script>
+  </head>
+  <body>
+    <mf-alert type="info">Some info</mf-alert>
+    <mf-alert type="error">Some error</mf-alert>
+    <mf-button id="button-1" onClick="handleClick2">Some error</mf-button>
+    <mf-button id="button-2" onClick="handleClick()">Some error2</mf-button>
+    <mf-modal>Test Modal</mf-modal>
+
+    <script>
+      const handleClick = () => {
+        console.log("click trigger");
+      };
+
+      const handleClick2 = () => {
+        console.log("click trigger 2");
+      };
+    </script>
+  </body>
+</html>
