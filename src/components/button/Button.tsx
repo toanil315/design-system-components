@@ -1,40 +1,58 @@
-import { MouseEvent, useState } from "react";
-// import styles from "./Button.css";
-import { StyledButton } from "./styled";
-import { StyleSheetManager } from "styled-components";
+import type { ReactNode } from "react";
+import { BoxProps } from "../Box";
+import * as S from "./styles";
 
-interface Props {
-  children: JSX.Element | string;
-  onClick: (e: MouseEvent<HTMLButtonElement> | undefined) => void;
+interface ButtonProps extends BoxProps {
+  $type?: "primary" | "secondary" | "white";
+  children: ReactNode;
+  loading?: boolean;
 }
 
-const Button = ({ children, onClick }: Props) => {
-  const [styleRef, setStyleRef] = useState<HTMLStyleElement | null>(null);
+const Button = ({
+  $type = "primary",
+  children,
+  loading,
+  borderRadius = "6px",
+  as = "button",
+  ...rest
+}: ButtonProps) => {
+  switch ($type) {
+    case "primary":
+      return (
+        <S.ButtonBase
+          as={S.PrimaryButton}
+          loading={loading}
+          borderRadius={borderRadius}
+          {...rest}
+        >
+          {loading && <S.Loading />}
+          {children}
+        </S.ButtonBase>
+      );
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement> | undefined) => {
-    const event = new CustomEvent("mf-button-click", {
-      bubbles: true,
-      composed: true,
-      detail: { message: "Button clicked" },
-    });
+    case "secondary":
+      return (
+        <S.SecondaryButton
+          as={as}
+          loading={loading}
+          borderRadius={borderRadius}
+          {...rest}
+        >
+          {loading && <S.LoadingSecondary />}
+          {children}
+        </S.SecondaryButton>
+      );
 
-    console.log(event);
+    case "white":
+      return (
+        <S.WhiteButton as={as} borderRadius={borderRadius} {...rest}>
+          {children}
+        </S.WhiteButton>
+      );
 
-    e?.target.dispatchEvent(event);
-
-    if (onClick) {
-      onClick(e);
-    }
-  };
-
-  return (
-    <StyleSheetManager target={styleRef as HTMLStyleElement}>
-      <style ref={(ref) => setStyleRef(ref)}></style>
-      <StyledButton className={StyledButton.toString()} onClick={handleClick}>
-        <span className="content">{children}</span>
-      </StyledButton>
-    </StyleSheetManager>
-  );
+    default:
+      throw new Error("Invalid type button!");
+  }
 };
 
 export default Button;

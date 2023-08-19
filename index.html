@@ -8,23 +8,25 @@
     <script type="module" src="./dist/design-system-components.js"></script>
   </head>
   <body>
-    <mf-alert type="info">Some info</mf-alert>
-    <mf-table id="table-1"></mf-table>
-    <mf-alert type="error">Some error</mf-alert>
-    <mf-button id="button-1">Some error</mf-button>
-    <mf-button id="button-2">Some error2</mf-button>
-    <mf-modal>Test Modal</mf-modal>
-    <mf-input id="input-1"></mf-input>
-    <mf-select id="select-1"></mf-select>
-    <mf-select id="select-2"></mf-select>
-    <mf-list id="list-1"></mf-list>
+    <mf-button $type="primary" id="button-1">Primary</mf-button>
+    <mf-button $type="primary" loading="true" id="button-2">Loading</mf-button>
+    <div style="margin-top: 40px">
+      <mf-date-picker
+        label="Birthday"
+        format="YYYY-MM-DD"
+        id="date-picker-1"
+      ></mf-date-picker>
+    </div>
+    <div style="margin-top: 40px">
+      <mf-input label="Full Name" id="input-1"></mf-input>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const btn1 = document.getElementById("button-1");
         const btn2 = document.getElementById("button-2");
-        const select1 = document.getElementById("select-1");
-        const select2 = document.getElementById("select-2");
+        const datePicker1 = document.getElementById("date-picker-1");
+        const input1 = document.getElementById("input-1");
 
         btn1.addEventListener("mf-button-click", (e) => {
           console.log("btn 1 click");
@@ -34,11 +36,14 @@
           console.log("btn 2 click");
         });
 
-        select1.addEventListener("mf-select-change", (e) => {
-          console.log("select 1 change: ", e.detail.value);
+        datePicker1.addEventListener("mf-datepicker-change", (e) => {
+          console.log("date picker change", e.detail.value);
         });
-        select2.addEventListener("mf-select-change", (e) => {
-          console.log("select 2 change: ", e.detail.value);
+
+        input1.isRequired = true;
+        input1.error = { message: "Full name is required!" };
+        input1.addEventListener("mf-input-change", (e) => {
+          console.log("input change", e.detail.value);
         });
       });
     </script>
