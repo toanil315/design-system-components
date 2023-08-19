@@ -12,13 +12,15 @@ const Button = ({ children, onClick }: Props) => {
   const [styleRef, setStyleRef] = useState<HTMLStyleElement | null>(null);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement> | undefined) => {
-    console.log("onCLick");
     const event = new CustomEvent("mf-button-click", {
       bubbles: true,
+      composed: true,
       detail: { message: "Button clicked" },
     });
 
-    dispatchEvent(event);
+    console.log(event);
+
+    e?.target.dispatchEvent(event);
 
     if (onClick) {
       onClick(e);

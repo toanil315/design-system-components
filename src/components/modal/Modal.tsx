@@ -24,7 +24,6 @@ const Modal = ({ children }: Props) => {
 
   return (
     <>
-      {/* <style>{styles}</style> */}
       <Button onClick={showModal}>Open Modal</Button>
       <AntdModal
         title="Basic Modal"

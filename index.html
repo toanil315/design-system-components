@@ -9,19 +9,38 @@
   </head>
   <body>
     <mf-alert type="info">Some info</mf-alert>
+    <mf-table id="table-1"></mf-table>
     <mf-alert type="error">Some error</mf-alert>
-    <mf-button id="button-1" onClick="handleClick2">Some error</mf-button>
-    <mf-button id="button-2" onClick="handleClick()">Some error2</mf-button>
+    <mf-button id="button-1">Some error</mf-button>
+    <mf-button id="button-2">Some error2</mf-button>
     <mf-modal>Test Modal</mf-modal>
+    <mf-input id="input-1"></mf-input>
+    <mf-select id="select-1"></mf-select>
+    <mf-select id="select-2"></mf-select>
+    <mf-list id="list-1"></mf-list>
 
     <script>
-      const handleClick = () => {
-        console.log("click trigger");
-      };
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn1 = document.getElementById("button-1");
+        const btn2 = document.getElementById("button-2");
+        const select1 = document.getElementById("select-1");
+        const select2 = document.getElementById("select-2");
 
-      const handleClick2 = () => {
-        console.log("click trigger 2");
-      };
+        btn1.addEventListener("mf-button-click", (e) => {
+          console.log("btn 1 click");
+        });
+
+        btn2.addEventListener("mf-button-click", (e) => {
+          console.log("btn 2 click");
+        });
+
+        select1.addEventListener("mf-select-change", (e) => {
+          console.log("select 1 change: ", e.detail.value);
+        });
+        select2.addEventListener("mf-select-change", (e) => {
+          console.log("select 2 change: ", e.detail.value);
+        });
+      });
     </script>
   </body>
 </html>
